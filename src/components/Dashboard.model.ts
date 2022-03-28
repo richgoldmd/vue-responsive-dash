@@ -34,8 +34,8 @@ export class Dashboard {
     return this._id;
   }
   get breakpoints() {
-    let bp: Breakpoint[] = [];
-    for (let layout of this._layouts) {
+    const bp: Breakpoint[] = [];
+    for (const layout of this._layouts) {
       bp.push({
         name: layout.breakpoint,
         numberOfCols: layout.numberOfCols,
@@ -118,7 +118,7 @@ export class Dashboard {
     });
   }
   removeLayoutInstance(l: Layout) {
-    let index = this.layouts.findIndex((layout) => {
+    const index = this.layouts.findIndex((layout) => {
       return l.breakpoint === layout.breakpoint;
     });
     if (index >= 0) {

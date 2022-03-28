@@ -392,7 +392,7 @@ export class DashItem {
     this._locked = l;
   }
   toItem() {
-    let item = {
+    const item = {
       id: this.id,
       x: this.x,
       y: this.y,
@@ -493,7 +493,7 @@ export class DashItem {
     return Math.round((heightPx + margin.y) / (rowHeight + margin.y));
   }
   static get defaults() {
-    let defaults: Item = {
+    const defaults: Item = {
       id: "",
       x: 0,
       y: 0,
