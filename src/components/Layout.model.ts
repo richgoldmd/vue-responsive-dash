@@ -254,9 +254,7 @@ export class Layout {
     if (typeof this._colWidth == "number") {
       colWidthCalc = this._colWidth;
     } else {
-      colWidthCalc =
-        (this.width - this.margin.x * (this.numberOfCols + 1)) /
-        this.numberOfCols;
+      colWidthCalc = (this.width - this.margin.x * (this.numberOfCols + 1)) / this.numberOfCols;
     }
 
     if (typeof this.maxColWidth == "number") {
@@ -305,9 +303,7 @@ export class Layout {
   //used when colWidth is defined (i.e. not looking or caring about width of window )
   calculateWidth() {
     if (typeof this._colWidth == "number" && typeof this.colWidth == "number") {
-      return (
-        this.numberOfCols * (this.colWidth + this.margin.x) + this.margin.x
-      );
+      return this.numberOfCols * (this.colWidth + this.margin.x) + this.margin.x;
     }
     return this._width;
   }
@@ -469,6 +465,10 @@ export class Layout {
       this.placeholder!.y = item.y;
       this.placeholder!.width = item.width;
       this.placeholder!.height = item.height;
+      this.placeholder!.minWidth = item.minWidth;
+      this.placeholder!.maxWidth = item.maxWidth;
+      this.placeholder!.minHeight = item.minHeight;
+      this.placeholder!.maxHeight = item.maxHeight;
       this.itemBeingDragged = true;
     }
     //Take a copy of items
@@ -509,26 +509,10 @@ export class Layout {
     this.placeholder!.maxWidth = item.maxWidth;
     this.placeholder!.minHeight = item.minHeight;
     this.placeholder!.maxHeight = item.maxHeight;
-    this.placeholder!.x = DashItem.getXFromLeft(
-      item.left!,
-      this.colWidth as number,
-      this.margin
-    );
-    this.placeholder!.y = DashItem.getYFromTop(
-      item.top!,
-      this.rowHeight,
-      this.margin
-    );
-    this.placeholder!.width = DashItem.getWidthFromPx(
-      item.widthPx!,
-      this.colWidth as number,
-      this.margin
-    );
-    this.placeholder!.height = DashItem.getHeightFromPx(
-      item.heightPx!,
-      this.rowHeight,
-      this.margin
-    );
+    this.placeholder!.x = DashItem.getXFromLeft(item.left!, this.colWidth as number, this.margin);
+    this.placeholder!.y = DashItem.getYFromTop(item.top!, this.rowHeight, this.margin);
+    this.placeholder!.width = DashItem.getWidthFromPx(item.widthPx!, this.colWidth as number, this.margin);
+    this.placeholder!.height = DashItem.getHeightFromPx(item.heightPx!, this.rowHeight, this.margin);
     //Take a copy of items
     const itemsCopy = JSON.parse(JSON.stringify(this.items)) as Item[];
     //Remove the item being resized as the placeholder takes its place. Otherwise the item will snap while being resized.
@@ -564,11 +548,7 @@ export class Layout {
   }
   //Collision Utils
   checkForCollision(d1: Item, d2: Item) {
-    if (
-      !this.itemBeingDragged &&
-      !this.itemBeingResized &&
-      d2.id === "-1Placeholder"
-    ) {
+    if (!this.itemBeingDragged && !this.itemBeingResized && d2.id === "-1Placeholder") {
       return false;
     }
     if (d1.id === d2.id) {
@@ -673,13 +653,7 @@ export class Layout {
     }
     return i;
   }
-  moveItem(
-    items: Item[],
-    d: Item,
-    x: number,
-    y: number,
-    isUserAction?: boolean
-  ) {
+  moveItem(items: Item[], d: Item, x: number, y: number, isUserAction?: boolean) {
     if (d.locked) {
       return items;
     }
@@ -702,29 +676,14 @@ export class Layout {
         return item.id === collision.id;
       });
       if (collision.locked) {
-        items = this.moveItemFromCollision(
-          items,
-          items[collisionIndex],
-          d,
-          isUserAction
-        );
+        items = this.moveItemFromCollision(items, items[collisionIndex], d, isUserAction);
       } else {
-        items = this.moveItemFromCollision(
-          items,
-          d,
-          items[collisionIndex],
-          isUserAction
-        );
+        items = this.moveItemFromCollision(items, d, items[collisionIndex], isUserAction);
       }
     }
     return items;
   }
-  moveItemFromCollision(
-    items: Item[],
-    colllidesWith: Item,
-    itemToMove: Item,
-    isUserAction?: Boolean
-  ) {
+  moveItemFromCollision(items: Item[], colllidesWith: Item, itemToMove: Item, isUserAction?: Boolean) {
     if (isUserAction) {
       const fakeItem: Item = {
         id: "-1fakeItem",
