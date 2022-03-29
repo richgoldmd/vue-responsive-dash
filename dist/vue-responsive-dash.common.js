@@ -14197,6 +14197,10 @@ var Layout = /*#__PURE__*/function () {
         this.placeholder.y = item.y;
         this.placeholder.width = item.width;
         this.placeholder.height = item.height;
+        this.placeholder.minWidth = item.minWidth;
+        this.placeholder.maxWidth = item.maxWidth;
+        this.placeholder.minHeight = item.minHeight;
+        this.placeholder.maxHeight = item.maxHeight;
         this.itemBeingDragged = true;
       } //Take a copy of items
 
