@@ -564,7 +564,11 @@ export class Layout {
   }
   //Collision Utils
   checkForCollision(d1: Item, d2: Item) {
-    if (d2.id === "-1Placeholder") {
+    if (
+      !this.itemBeingDragged &&
+      !this.itemBeingResized &&
+      d2.id === "-1Placeholder"
+    ) {
       return false;
     }
     if (d1.id === d2.id) {

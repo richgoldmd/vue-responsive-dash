@@ -14279,7 +14279,7 @@ var Layout = /*#__PURE__*/function () {
   }, {
     key: "checkForCollision",
     value: function checkForCollision(d1, d2) {
-      if (d2.id === "-1Placeholder") {
+      if (!this.itemBeingDragged && !this.itemBeingResized && d2.id === "-1Placeholder") {
         return false;
       }
 
