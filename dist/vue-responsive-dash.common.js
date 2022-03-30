@@ -2370,9 +2370,6 @@ var Dashboard_model_Dashboard = /*#__PURE__*/function () {
           if (this.width > this.breakpoints[i].setpoint) {
             matching = this.breakpoints[i].name;
           }
-        } else {
-          // RG Undefined breakpoint, so its the last or maximum
-          return this.breakpoints[i].name;
         }
       }
 
