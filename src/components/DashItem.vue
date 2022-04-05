@@ -335,6 +335,7 @@ export default {
     setDraggable() {
       if (this.draggable && !this.locked) {
         this.interactInstance.draggable({
+          autoScroll: true,
           enabled: true,
           hold: this.moveHold,
           allowFrom: this.dragAllowFrom,
