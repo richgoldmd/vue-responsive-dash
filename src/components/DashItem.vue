@@ -335,7 +335,10 @@ export default {
     setDraggable() {
       if (this.draggable && !this.locked) {
         this.interactInstance.draggable({
-          autoScroll: true,
+          autoScroll: {
+            container: document.documentElement,
+            margin: 100,
+          },
           enabled: true,
           hold: this.moveHold,
           allowFrom: this.dragAllowFrom,
