@@ -285,15 +285,9 @@ export default {
     },
     cssStyle() {
       if (this.useCssTransforms) {
-        return {
-          ...DashItem.cssTransform(this.top, this.left, this.widthPx, this.heightPx),
-          "touch-action": this.dragging || this.resizing ? "none" : "auto",
-        };
+        return DashItem.cssTransform(this.top, this.left, this.widthPx, this.heightPx);
       } else {
-        return {
-          ...DashItem.cssTopLeft(this.top, this.left, this.widthPx, this.heightPx),
-          "touch-action": this.dragging || this.resizing ? "none" : "auto",
-        };
+        return DashItem.cssTopLeft(this.top, this.left, this.widthPx, this.heightPx);
       }
     },
     resizeTop() {
@@ -489,6 +483,8 @@ export default {
     }
   },
 };
+
+//   touch-action: none; Removed from style - handle in app
 </script>
 
 <style scoped>
@@ -498,7 +494,6 @@ export default {
   display: inline-block;
   transition: all 200ms ease;
   transition-property: left, top, right;
-  x-touch-action: none;
   user-select: none;
 }
 .item.dragging {
