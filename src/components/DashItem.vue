@@ -285,38 +285,28 @@ export default {
     },
     cssStyle() {
       if (this.useCssTransforms) {
-        return DashItem.cssTransform(
-          this.top,
-          this.left,
-          this.widthPx,
-          this.heightPx
-        );
+        return {
+          ...DashItem.cssTransform(this.top, this.left, this.widthPx, this.heightPx),
+          "touch-action": this.dragging || this.resizing ? "none" : "auto",
+        };
       } else {
-        return DashItem.cssTopLeft(
-          this.top,
-          this.left,
-          this.widthPx,
-          this.heightPx
-        );
+        return {
+          ...DashItem.cssTopLeft(this.top, this.left, this.widthPx, this.heightPx),
+          "touch-action": this.dragging || this.resizing ? "none" : "auto",
+        };
       }
     },
     resizeTop() {
       return !this.locked && this.resizable && this.resizeEdges.includes("top");
     },
     resizeBottom() {
-      return (
-        !this.locked && this.resizable && this.resizeEdges.includes("bottom")
-      );
+      return !this.locked && this.resizable && this.resizeEdges.includes("bottom");
     },
     resizeLeft() {
-      return (
-        !this.locked && this.resizable && this.resizeEdges.includes("left")
-      );
+      return !this.locked && this.resizable && this.resizeEdges.includes("left");
     },
     resizeRight() {
-      return (
-        !this.locked && this.resizable && this.resizeEdges.includes("right")
-      );
+      return !this.locked && this.resizable && this.resizeEdges.includes("right");
     },
     resizeTopLeft() {
       return !this.locked && this.resizeTop && this.resizeLeft;
@@ -335,10 +325,10 @@ export default {
     setDraggable() {
       if (this.draggable && !this.locked) {
         this.interactInstance.draggable({
-          autoScroll: {
-            container: document.documentElement,
-            margin: 100,
-          },
+          // autoScroll: {
+          //   container: document.documentElement,
+          //   margin: 100,
+          // },
           enabled: true,
           hold: this.moveHold,
           allowFrom: this.dragAllowFrom,
@@ -508,7 +498,7 @@ export default {
   display: inline-block;
   transition: all 200ms ease;
   transition-property: left, top, right;
-  touch-action: none;
+  x-touch-action: none;
   user-select: none;
 }
 .item.dragging {
